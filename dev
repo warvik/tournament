@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+# Disable pseudo-TTY allocation for CI (Jenkins)
+TTY=""
+
+
+COMPOSE="docker-compose"
+
+if [ $# -gt 0 ];then
+    if [ "$1" == "art" ]; then
+        shift 1
+        $COMPOSE run --rm $TTY \
+            -w /var/www/html/app \
+            web \
+            php artisan "$@"
+    # If "composer" is used, pass-thru to "composer"
+    # inside a new container
+    elif [ "$1" == "composer" ]; then
+        shift 1
+        $COMPOSE run --rm $TTY \
+            -w /var/www/html/app \
+            web \
+            composer "$@"
+
+    # If "test" is used, run unit tests,
+    # pass-thru any extra arguments to php-unit
+    elif [ "$1" == "test" ]; then
+        shift 1
+        $COMPOSE run --rm $TTY \
+            -w /var/www/html/app \
+            web \
+            ./vendor/bin/phpunit "$@"
+
+    elif [ "$1" == "t" ]; then
+        shift 1
+        $COMPOSE exec \
+            web \
+            sh -c "cd /var/www/html && ./vendor/bin/phpunit $@"
+
+    # If "npm" is used, run npm
+    # from our node container
+    elif [ "$1" == "npm" ]; then
+        shift 1
+        $COMPOSE run --rm $TTY \
+            -w /var/www/html/app \
+            node \
+            npm "$@"
+
+    # If "gulp" is used, run gulp
+    # from our node container
+    elif [ "$1" == "gulp" ]; then
+        shift 1
+        $COMPOSE run --rm $TTY \
+            -w /var/www/html/app \
+            node \
+            ./node_modules/.bin/gulp "$@"
+    # Run "composer create project laravel/larave app"
+    elif [ "$1" == "create" ]; then
+        shift 1
+        $COMPOSE run --rm $TTY \
+            -w /var/www/html/app \
+            web \
+            composer create-project laravel/laravel app
+    # Same as "create", but delete existing code first
+    elif [ "$1" == "recreate" ]; then
+        shift 1
+        rm -r ./app && ./dev create
+    else
+        $COMPOSE "$@"
+    fi
+else
+    $COMPOSE ps
+fi

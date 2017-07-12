@@ -1,0 +1,52 @@
+version: '2'
+services:
+  web:
+    build:
+      context: ./docker/web
+      dockerfile: Dockerfile
+    image: bw.com/web
+    ports:
+      - 80:80
+    environment:
+      APP_ENV: local
+      XDEBUG_HOST: localhost
+    volumes:
+     - .:/var/www/html
+    networks:
+     - bwnet
+  node:
+    build:
+      context: ./docker/node
+      dockerfile: Dockerfile
+    image: bw.com/node
+    volumes:
+     - .:/var/www/html
+    networks:
+     - bwnet
+  mysql:
+    image: mysql:5.7
+    volumes:
+     - mysqldata:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+    networks:
+     - bwnet
+  redis:
+    image: redis:alpine
+    volumes:
+     - redisdata:/data
+    networks:
+     - bwnet
+networks:
+  bwnet:
+    driver: "bridge"
+volumes:
+  mysqldata:
+    driver: "local"
+  redisdata:
+    driver: "local"

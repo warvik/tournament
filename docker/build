@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+docker build -f web/Dockerfile -t bw.com/web:latest ./web
+docker build -f node/Dockerfile -t bw.com/node:latest ./node
+
