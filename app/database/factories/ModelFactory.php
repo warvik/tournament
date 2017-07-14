@@ -13,6 +13,9 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\User::class, function (Faker\Generator $faker) {
+    
+    $faker = Faker\Factory::create('nb_NO');
+
     static $password;
 
     return [
@@ -20,5 +23,39 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Club::class, function (Faker\Generator $faker) {
+    
+    $faker = Faker\Factory::create('nb_NO');
+
+    return [
+        'name' => $faker->name,
+        'user_id' => function(){
+            return factory('App\User')->create()->id;
+        },
+        'contact_person' => 'wtf',
+        'email' => $faker->email,
+        'telephone' => $faker->phoneNumber,
+        'url' => $faker->domainName
+    ];
+});
+
+$factory->define(App\Team::class, function (Faker\Generator $faker) {
+    
+    $faker = Faker\Factory::create('nb_NO');
+
+    return [
+        'name' => $faker->name,
+        'user_id' => function(){
+            return factory('App\User')->create()->id;
+        },
+        'club_id' => function(){
+            return factory('App\Club')->create()->id;
+        },
+        'contact_person' => 'wtf',
+        'email' => $faker->email,
+        'telephone' => $faker->phoneNumber
     ];
 });
