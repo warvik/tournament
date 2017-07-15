@@ -26,3 +26,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route::post('/clubs', 'ClubsController@store');
 Route::resource('/clubs', 'ClubsController');
 Route::resource('/teams', 'TeamsController');
+Route::resource('/classes', 'TournamentclassController');

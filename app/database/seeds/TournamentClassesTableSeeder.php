@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TournamentClassesTableSeeder extends Seeder
+class TournamentclassesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -29,7 +29,7 @@ class TournamentClassesTableSeeder extends Seeder
 
         }
 
-        DB::table('tournament_classes')->insert($classes);
+        DB::table('tournamentclasses')->insert($classes);
 
     }
 }

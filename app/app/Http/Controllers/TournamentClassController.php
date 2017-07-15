@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\TournamentClass;
+use App\Tournamentclass;
 use Illuminate\Http\Request;
 
-class TournamentClassController extends Controller
+class TournamentclassController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class TournamentClassController extends Controller
      */
     public function index()
     {
-        //
+        $classes = Tournamentclass::latest()->get();
+        return view('tournamentclasses.index', compact('classes'));
     }
 
     /**
@@ -41,21 +42,22 @@ class TournamentClassController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TournamentClass  $tournamentClass
+     * @param  \App\Tournamentclass  $tournamentclass
      * @return \Illuminate\Http\Response
      */
-    public function show(TournamentClass $tournamentClass)
+    public function show($id)
     {
-        //
+        $class = Tournamentclass::findOrFail($id)->load('teams');
+        return view('tournamentclasses.show', compact('class'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TournamentClass  $tournamentClass
+     * @param  \App\Tournamentclass  $tournamentclass
      * @return \Illuminate\Http\Response
      */
-    public function edit(TournamentClass $tournamentClass)
+    public function edit(Tournamentclass $tournamentclass)
     {
         //
     }
@@ -64,10 +66,10 @@ class TournamentClassController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TournamentClass  $tournamentClass
+     * @param  \App\Tournamentclass  $tournamentclass
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TournamentClass $tournamentClass)
+    public function update(Request $request, tournamentclass $tournamentclass)
     {
         //
     }
@@ -75,10 +77,10 @@ class TournamentClassController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TournamentClass  $tournamentClass
+     * @param  \App\Tournamentclass  $tournamentclass
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TournamentClass $tournamentClass)
+    public function destroy(Tournamentclass $tournamentclass)
     {
         //
     }

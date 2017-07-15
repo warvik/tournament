@@ -59,3 +59,16 @@ $factory->define(App\Team::class, function (Faker\Generator $faker) {
         'telephone' => $faker->phoneNumber
     ];
 });
+
+$factory->define(App\Tournamentclass::class, function (Faker\Generator $faker) {
+    
+    $faker = Faker\Factory::create('nb_NO');
+
+    return [
+        'name' => $faker->name,
+        'user_id' => function(){
+            return factory('App\User')->create()->id;
+        },
+        'type' => collect(['Group', 'Group + Finals'])->random()
+    ];
+});
