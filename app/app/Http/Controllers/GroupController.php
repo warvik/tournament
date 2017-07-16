@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Tournamentclass;
+use App\Group;
 use Illuminate\Http\Request;
-use App\Generators\GroupMatchesGenerator;
 
-class TournamentclassController extends Controller
+class GroupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,7 @@ class TournamentclassController extends Controller
      */
     public function index()
     {
-        $classes = Tournamentclass::latest()->get();
-        return view('tournamentclasses.index', compact('classes'));
+        //
     }
 
     /**
@@ -43,29 +41,21 @@ class TournamentclassController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tournamentclass  $tournamentclass
+     * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Group $group)
     {
-        $class = Tournamentclass::findOrFail($id)->load(['teams.club', 'teams.tournamentClass', 'groups.teams']);
-
-        $teams = $class->teams;
-        $groups = $class->groups;
-        $matchGenerator = new GroupMatchesGenerator($teams);
-        $matches = $matchGenerator->generate();
-
-
-        return view('tournamentclasses.show', compact('class', 'matches', 'groups'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tournamentclass  $tournamentclass
+     * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tournamentclass $tournamentclass)
+    public function edit(Group $group)
     {
         //
     }
@@ -74,10 +64,10 @@ class TournamentclassController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tournamentclass  $tournamentclass
+     * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, tournamentclass $tournamentclass)
+    public function update(Request $request, Group $group)
     {
         //
     }
@@ -85,10 +75,10 @@ class TournamentclassController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tournamentclass  $tournamentclass
+     * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tournamentclass $tournamentclass)
+    public function destroy(Group $group)
     {
         //
     }

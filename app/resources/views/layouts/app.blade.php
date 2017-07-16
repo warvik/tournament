@@ -36,7 +36,26 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                               aria-expanded="false">Administration <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+                                <li><a href="/classes">Classes</a></li>
+                                <li><a href="/clubs">Clubs</a></li>
+                                <li><a href="/teams">Teams</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                               aria-expanded="false">Create <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+                                <li><a href="/clubs/create">Club</a></li>
+                                <li><a href="/teams/create">Team</a></li>
+                            </ul>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

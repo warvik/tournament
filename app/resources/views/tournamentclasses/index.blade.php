@@ -55,6 +55,7 @@
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Teams</th>
+                                <th>Groups</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,6 +66,7 @@
                                 </td>
                                 <td>{{$class->type}}</td>
                                 <td>{{$class->teams->count()}}</td>
+                                <td>{{$class->groups->count()}}</td>
                             </tr>
                         @endforeach
                         </tbody>

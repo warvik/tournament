@@ -18,6 +18,8 @@ class CreateTournamentclassesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('name');
             $table->string('type')->comment('Group, Group + Finals');
+            $table->unsignedInteger('match_length')->comment('Minutes between start of a match and next match. This includes playing time, half time break and time for next match to start.');
+            $table->unsignedInteger('group_size')->comment('Ideal number of teams in each group.');
             $table->timestamps();
         });
     }
