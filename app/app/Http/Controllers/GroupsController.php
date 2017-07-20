@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Club;
+use App\Tournamentclass;
+use App\Group;
 use Illuminate\Http\Request;
 
-class ClubsController extends Controller
+class GroupsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Tournamentclass $tournamentclass, Group $group)
     {
-        $clubs = Club::latest()->get();
-        return view('clubs.index', compact('clubs'));
+        $tournamentclass->load('teams', 'groups');
+        $group->load('teams', 'tournamentclass');
+
+        return view('groups.index', ['class' => $tournamentclass, 'group' => $group, 'teams' => $group->teams, 'matches' => []]);
     }
 
     /**
@@ -36,31 +39,27 @@ class ClubsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all(), \Auth::user()->toArray());
-        $club = Club::create( array_merge($request->all(), ['user_id' => \Auth::id()]));
-        return redirect('/clubs/' . $club->id);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Club  $club
+     * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function show(Club $club)
+    public function show(Group $group)
     {
-        $teams = $club->teams;
-        // dd($teams);
-        return view('clubs.show', compact('club', 'teams'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Club  $club
+     * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function edit(Club $club)
+    public function edit(Group $group)
     {
         //
     }
@@ -69,25 +68,28 @@ class ClubsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Club  $club
+     * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Club $club)
+    public function update(Request $request, Group $group)
     {
-        $club->update($request->all());
-        return redirect('/clubs/' . $club->id);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Club  $club
+     * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Club $club)
+    public function destroy(Group $group)
     {
-        $club->delete();
+        //
+    }
 
-        return redirect('/clubs');
+    public function generate(Tournamentclass $tournamentclass) {
+        $tournamentclass->createGroups(true);
+
+        return redirect('/classes/' . $tournamentclass->id);
     }
 }

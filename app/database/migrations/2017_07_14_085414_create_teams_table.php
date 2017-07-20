@@ -15,7 +15,7 @@ class CreateTeamsTable extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('club_id');
             $table->unsignedInteger('tournament_class_id');
             $table->unsignedInteger('group_id')->nullable();

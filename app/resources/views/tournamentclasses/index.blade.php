@@ -2,6 +2,13 @@
 
 @section('content')
 <div class="container">
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-md-12 mb-1">
+            <a href="/classes/groups/generate" class="btn btn-primary">Generate groups</a>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
 

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Club;
+use App\Venue;
 use Illuminate\Http\Request;
 
-class ClubsController extends Controller
+class VenueController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class ClubsController extends Controller
      */
     public function index()
     {
-        $clubs = Club::latest()->get();
-        return view('clubs.index', compact('clubs'));
+        //
     }
 
     /**
@@ -36,31 +35,27 @@ class ClubsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all(), \Auth::user()->toArray());
-        $club = Club::create( array_merge($request->all(), ['user_id' => \Auth::id()]));
-        return redirect('/clubs/' . $club->id);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Club  $club
+     * @param  \App\Venue  $venue
      * @return \Illuminate\Http\Response
      */
-    public function show(Club $club)
+    public function show(Venue $venue)
     {
-        $teams = $club->teams;
-        // dd($teams);
-        return view('clubs.show', compact('club', 'teams'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Club  $club
+     * @param  \App\Venue  $venue
      * @return \Illuminate\Http\Response
      */
-    public function edit(Club $club)
+    public function edit(Venue $venue)
     {
         //
     }
@@ -69,25 +64,22 @@ class ClubsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Club  $club
+     * @param  \App\Venue  $venue
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Club $club)
+    public function update(Request $request, Venue $venue)
     {
-        $club->update($request->all());
-        return redirect('/clubs/' . $club->id);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Club  $club
+     * @param  \App\Venue  $venue
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Club $club)
+    public function destroy(Venue $venue)
     {
-        $club->delete();
-
-        return redirect('/clubs');
+        //
     }
 }
