@@ -27,4 +27,5 @@ class ClassesTest extends TestCase
             ->assertStatus(200)
             ->assertSee($class->name);
     }
+
 }

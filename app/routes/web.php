@@ -26,6 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route::post('/clubs', 'ClubsController@store');
 Route::resource('/clubs', 'ClubsController');
 Route::resource('/teams', 'TeamsController');
+
 Route::get('/classes/groups/generate', 'GenerateGroupsController@generateAllGroups');
 Route::resource('/classes', 'TournamentclassController');
 
@@ -35,3 +36,5 @@ Route::get('classes/{tournamentclass}/groups/{group}',              'GroupsContr
 Route::get( 'classes/{tournamentclass}/regenerate/groups/confirm',  'GenerateGroupsController@reconfirm');
 Route::get( 'classes/{tournamentclass}/regenerate/groups',          'GenerateGroupsController@restart');
 Route::post('classes/{tournamentclass}/regenerate/groups',          'GenerateGroupsController@regenerate');
+
+Route::resource('/tournaments', 'TournamentController');

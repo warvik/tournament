@@ -21,25 +21,38 @@ class Tournamentclass extends Model
 
     public function createGroups($forceRecreate = false) {
 
-        if ( $forceRecreate ) {
-            $this->groups->each(function($group){ $group->delete(); });
+        $nrOfGroups = (int) floor($this->teams->count() / $this->group_size);
+        $index = 0;
+
+        while( $index < $nrOfGroups ) {
+
+            (new Group(['tournament_class_id' => $this->id, 'name' => 'N/A' ]))->save();
+
+            $index++;
         }
 
-        $groups = (new TeamsIntoGroupsGenerator($this))->generate();
+        echo $this->teams->count() . ' / ' . $this->group_size . ' = ' . $nrOfGroups . '<br />';
+        // dd('asdlfkj');
 
-        $groups->each(function($item, $index){
-            $group = new Group(['tournament_class_id' => $this->id, 'name' => 'Group ' . $index]);
+        // if ( $forceRecreate ) {
+        //     $this->groups->each(function($group){ $group->delete(); });
+        // }
 
-            $group->save();
+        // $groups = (new TeamsIntoGroupsGenerator($this))->generate();
 
-            $item->each(function($teamId) use ($group) {
-                $team = Team::findOrFail($teamId);
-                $team->group_id = $group->id;
-                $team->save();
-            });
-        });
+        // $groups->each(function($item, $index){
+        //     $group = new Group(['tournament_class_id' => $this->id, 'name' => 'Group ' . $index]);
 
-        return $groups;
+        //     $group->save();
+
+        //     $item->each(function($teamId) use ($group) {
+        //         $team = Team::findOrFail($teamId);
+        //         $team->group_id = $group->id;
+        //         $team->save();
+        //     });
+        // });
+
+        return []; //$groups;
     }
 
 }

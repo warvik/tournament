@@ -26,6 +26,23 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Tournament::class, function (Faker\Generator $faker) {
+    
+    $faker = Faker\Factory::create('nb_NO');
+
+    return [
+        'user_id' => function(){
+            return factory('App\User')->create()->id;
+        },
+        "name" => $faker->word,
+        "club" => $faker->name,
+        "start_date" => \Carbon\Carbon::now()->addDays(15),
+        "end_date" => \Carbon\Carbon::now()->addDays(17),
+        "location" => $faker->city,
+        "registration_deadline" => \Carbon\Carbon::now()->addDays(10),
+    ];
+});
+
 $factory->define(App\Club::class, function (Faker\Generator $faker) {
     
     $faker = Faker\Factory::create('nb_NO');
